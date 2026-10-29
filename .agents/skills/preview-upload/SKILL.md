@@ -49,6 +49,10 @@ cache; an unknown path answers 200 with the page itself (fallback), not a 404.
 - Old deploys (they keep the old content, e.g. the lane marker):
   `npx -y wrangler@4 pages deployment list --project-name <project>`, then
   `npx -y wrangler@4 pages deployment delete <id> --project-name <project>`. It asks to confirm and
-  answers "no" when stdin is not a terminal: run it in a terminal the human can answer, or delete in
-  the dashboard (Workers & Pages > project > Deployments).
+  answers "no" when stdin is not a terminal. What worked: the dashboard, open
+  `https://dash.cloudflare.com/<account-id>/pages/view/<project>/<deployment-id>`, then
+  Manage deployment > Delete deployment > Delete (the "More actions" dots in the list did not open).
+  A wrangler run from the human's own PowerShell did not find the login above and started a new,
+  broad-scope one: stop it, don't approve it. In PowerShell call `npx.cmd`, not `npx` (script policy).
+- Check: `https://<hash>.<project>-<suffix>.pages.dev/` answers 404 once its deploy is gone.
 - Whole link: `npx -y wrangler@4 pages project delete <project> -y`.
