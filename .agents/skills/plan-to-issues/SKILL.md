@@ -15,7 +15,7 @@ in a shell this agent can run.
    One issue per unit of work.
 3. **Stop and show the table to the human.** Publish nothing until they approve it.
 4. Ask the human what every issue here must carry (fields, labels, wording), unless it is
-   already written down in this session or in the repo.
+   already written down in this session or in the repo. It is: see "Issue shape" below.
 5. Create each issue in dependency order, so blocked-by can cite real numbers:
 
    ```sh
@@ -29,6 +29,35 @@ Closing one, with the closing comment from AGENTS.md:
 ```sh
 gh issue close <n> -c "<closing comment>"
 ```
+
+## Issue shape
+
+What every issue here carries. Decided by the human (MarcinCieslak) on 2026-10-29, for plan
+morning-digest; change it only when they say so.
+
+- Label `plan:<plan>` (the `plan:` value in `plan.md`'s frontmatter, e.g. `plan:morning-digest`).
+  Create the label first if the repo lacks it.
+- Body, in this order:
+
+  ```md
+  Source: plan.md § <n>
+
+  ## Scope
+  <what to change, from the plan's section; files and rules that bind it>
+
+  ## Done when
+  <the plan's "Done when", checkable>
+
+  ## Blocked by
+  <#n, and what of it is needed (e.g. "#1 (src/digest/types.ts only)"); "—" if nothing>
+  <if starting needs less than the done check: "the done check also needs #n">
+
+  ## Suggested worker
+  <harness> · <model> · <effort>   (strongest model for logic, a cheaper one for views and tests)
+  ```
+
+- A step that waits on someone outside the lane (a review, a reply) stays open until they
+  confirm it; "sent" is not "done". Its blocked-by names that wait.
 
 ## No `gh`
 
